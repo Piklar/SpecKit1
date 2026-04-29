@@ -1,50 +1,48 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- 
+Sync Impact Report: v0.0.0 → v1.0.0
+- MAJOR: Initial constitution ratification
+- Added 3 core principles: Clean Code, Strict Testing Standards, Responsive UI
+- Added Quality Gates section
+- Added Development Workflow section
+- Ratified: 2026-04-29
+-->
+
+# SpecKit Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Clean Code (NON-NEGOTIABLE)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+All code MUST follow readable, maintainable patterns ensuring long-term sustainability and team comprehension. Code reviews MUST verify adherence to project style guides before any merge approval. Complexity indicators (cyclomatic complexity, method length, cognitive load) MUST be monitored; code with elevated complexity markers MUST include clear justification in review comments or be refactored.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+**Rationale**: Clean code reduces defects, accelerates onboarding, and enables confident refactoring.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### II. Strict Testing Standards (NON-NEGOTIABLE)
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+Test-Driven Development (TDD) is mandatory: tests are written and reviewed before implementation begins. Minimum 80% code coverage is required on all new features. Integration tests MUST verify contract behavior across components and critical user workflows. Unit tests focus on isolated logic; integration tests focus on service boundaries and data flow.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**Rationale**: Comprehensive testing catches bugs early, enables safe refactoring, and documents expected behavior.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### III. Responsive UI (NON-NEGOTIABLE)
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+All user-facing interfaces MUST render correctly and perform responsively across desktop, tablet, and mobile viewports. Accessibility conformance to WCAG 2.1 AA standard MUST be verified before UI features merge. Responsive breakpoints MUST be tested across major browser engines (Chrome, Firefox, Safari, Edge). Performance targets: first contentful paint ≤2.5s, interactive ≤5s on 4G networks.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+**Rationale**: Responsive design ensures inclusivity and reaches the widest user base; accessibility compliance is both ethical and legally required.
+
+## Quality Gates
+
+Code quality MUST be verified through automated analysis (linting, type checking) and manual review. Performance budgets MUST be maintained for bundle size, render time, and network requests. Security scanning MUST run on all dependencies before deployment. Any violations of the three core principles above MUST block merge until resolved.
+
+## Development Workflow
+
+**Code Review Process**: Every PR MUST receive at least one approval from another team member before merge. Reviewers MUST verify compliance with all three core principles: code readability, test coverage, and UI responsiveness (where applicable). Feedback MUST be constructive and specific; nitpicks should not block approval.
+
+**Testing Gates**: All new code MUST include tests. Existing tests MUST pass before merge. Coverage reports MUST be visible in PR checks; decreases in coverage require justification.
+
+**Deployment**: Deployments MUST include a pre-release checklist confirming code quality, test passage, and accessibility review. Hotfixes bypass this workflow only when critical production issues demand immediate resolution; hotfixes MUST still meet all three principles within 48 hours.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices and guidelines. Amendments to principles require documented rationale, team review, and unanimous consensus. Version bumps follow semantic versioning: MAJOR for principle removals/redefinitions, MINOR for new principles or significant guidance expansions, PATCH for clarifications or wording refinements. All PRs and reviews MUST verify compliance with this constitution; deviations must be explicitly justified and documented.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-29
