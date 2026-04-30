@@ -2,7 +2,7 @@
 
 **Feature Branch**: `002-user-profile-dashboard`  
 **Created**: 2026-04-29  
-**Status**: Draft  
+**Status**: Active  
 **Input**: User description: "User Profile Dashboard"
 
 ## User Scenarios & Testing *(mandatory)*
@@ -47,29 +47,36 @@ As a user, I want to see a summary of my recent activity or relevant metrics on 
 
 **Acceptance Scenarios**:
 
-1. **Given** the user has recent activity, **When** they view the dashboard, **Then** a summary of that activity is displayed.
+1. **Given** the user has farms linked to their account, **When** they view the dashboard, **Then** they see a summary of their farms, active crops by season, and prevalent pests that could affect those crops.
+2. **Given** the user has no farms linked, **When** they view the dashboard, **Then** they should be able to see crops that they can farm and news about farming. Also has a prompt to add a farm. 
 
 ### Edge Cases
 
-- What happens when a user attempts to upload an avatar image that is too large or an invalid format?
+- Avatar upload: Files exceeding **2 MB** or non-image formats (anything other than JPEG, PNG, WebP) must be rejected with a clear error message before upload.
 - How does the system handle concurrent edits if the user has the profile open in multiple tabs?
 - What happens if the network connection drops while saving profile changes?
 
 ## Requirements *(mandatory)*
 
+- **R-001**: System MUST implement the Profile Dashboard as a protected route, accessible only to authenticated users.
+- **R-002**: Dashboard should display tasks that the user has inputted to be done in their calendar
+
 ### Functional Requirements
 
 - **FR-001**: System MUST allow authenticated users to view their profile information.
 - **FR-002**: System MUST allow users to update their personal details (e.g., Name, Municipality).
-- **FR-003**: System MUST allow users to upload, change, or remove their profile picture/avatar.
-- **FR-004**: System MUST display a summary of the user's recent activity, metrics, or linked entities [NEEDS CLARIFICATION: What specific activity, metrics, or entities (e.g., farms, weather queries) should be highlighted on the dashboard?].
-- **FR-005**: System MUST validate all user inputs (e.g., correct email format, maximum file size for avatars) before saving.
-- **FR-006**: System MUST securely handle sensitive operations like password changes [NEEDS CLARIFICATION: Should the profile dashboard include password reset/change functionality, or is that handled elsewhere?].
+- **FR-003**: System MUST allow users to upload, change, or remove their profile picture/avatar. Uploads are limited to **2 MB** and must be JPEG, PNG, or WebP format. Files are stored via Cloudinary (credentials provided via `.env`).
+- **FR-004**: System MUST display a farm & crop summary on the dashboard: number of linked farms, active crops by current season, and prevalent pests that could affect those crops (sourced from the Pest model filtered by the user's linked crops).
+- **FR-005**: System MUST validate all user inputs before saving. Password must meet the following policy: minimum 8 characters, at least 1 uppercase letter, and at least 1 special character. Avatar uploads are rejected if they exceed 2 MB or are not a supported image type.
+- **FR-006**: System MUST include an inline password change section within the profile dashboard page. The section requires the user to enter their current password for verification before setting a new one.
 
 ### Key Entities *(include if feature involves data)*
 
 - **UserProfile**: Represents the user's display data (Name, Email, Avatar URL, Default Municipality).
-- **UserActivity**: Represents the recent actions or logs associated with the user for dashboard display.
+- **UserActivity**: Represents the farm/crop/pest summary data aggregated for dashboard display:
+  - Linked farms count
+  - Active crops (filtered by current season)
+  - Prevalent pests (filtered by crops on the user's farms)
 
 ## Success Criteria *(mandatory)*
 
@@ -83,6 +90,21 @@ As a user, I want to see a summary of my recent activity or relevant metrics on 
 ## Assumptions
 
 - Users are already authenticated and a session mechanism (JWT) is in place.
-- Image uploads will be handled by an external service (e.g., Cloudinary) as per existing project architecture.
+- Image uploads will be handled by Cloudinary. API keys (`CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`) will be provided by the user via `.env` and are not hardcoded.
 - Mobile responsiveness is required for the dashboard layout.
 - If a user changes their email, a separate email verification flow might be triggered (assumed standard behavior).
+
+## Architecture Notes
+
+- **Backend folder structure**: Separate folders for `db/` (Mongoose models), `service/` (business logic), and `controller/` (route handlers). No test folders.
+- **Password validation** is enforced both on the frontend (real-time feedback) and backend (regex on the service layer).
+
+## Clarifications
+
+### Session 2026-04-29
+
+- Q: Where does the password change form live? → A: Inline section within the profile dashboard page.
+- Q: Password policy requirements? → A: Min 8 characters, 1 uppercase, 1 special character (from user input).
+- Q: Backend folder structure? → A: Separate `db/`, `service/`, `controller/` folders; no test folders.
+- Q: What data appears in the activity/metrics section? → A: Farm & crop summary (linked farms, active crops by season) plus prevalent pests for those crops.
+- Q: Avatar upload constraints? → A: Max 2 MB, JPEG/PNG/WebP only. Cloudinary API keys supplied via `.env`.

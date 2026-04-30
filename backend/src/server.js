@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 
 // Setup routes
 const setCacheHeaders = require('./middleware/cache');
+const authenticateJWT = require('./middleware/authenticateJWT');
 
 // Setup routes
 app.use('/api/auth', require('./routes/auth'));
@@ -31,6 +32,9 @@ app.use('/api/pests', require('./routes/pests'));
 app.use('/api/farm', require('./routes/farm'));
 app.use('/api/calendar', setCacheHeaders(86400), require('./routes/calendar'));
 app.use('/api/news', setCacheHeaders(3600), require('./routes/news'));
+
+// Feature 002: User Profile Dashboard — all sub-routes require a valid JWT
+app.use('/api/profile', authenticateJWT, require('./profile/controller/profileController'));
 
 // Error Handling
 app.use(notFound);

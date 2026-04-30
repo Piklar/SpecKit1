@@ -20,6 +20,7 @@ export default function Dashboard() {
           <Button color="inherit" onClick={() => navigate('/calendar')}>Calendar</Button>
           <Button color="inherit" onClick={() => navigate('/news')}>News</Button>
           <Button color="inherit" onClick={() => navigate('/about')}>About</Button>
+          <Button color="inherit" onClick={() => navigate('/profile')}>Profile</Button>
           <Button color="inherit" onClick={logout}>Logout</Button>
         </Toolbar>
       </AppBar>
