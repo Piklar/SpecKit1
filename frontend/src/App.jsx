@@ -16,6 +16,7 @@ import AddFarmForm from './pages/farm/AddFarmForm';
 import CalendarPage from './pages/calendar/CalendarPage';
 import NewsPage from './pages/news/NewsPage';
 import AboutPage from './pages/about/AboutPage';
+import ProfilePage from './pages/profile/ProfilePage';
 import { FarmProvider } from './contexts/FarmContext';
 
 const PrivateRoute = ({ children }) => {
@@ -85,6 +86,10 @@ function App() {
             <Route 
               path="/news" 
               element={<PrivateRoute><NewsPage /></PrivateRoute>} 
+            />
+            <Route
+              path="/profile"
+              element={<PrivateRoute><ProfilePage /></PrivateRoute>}
             />
             <Route 
               path="/about" 

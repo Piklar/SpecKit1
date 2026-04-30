@@ -6,7 +6,12 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['farmer', 'admin'], default: 'farmer' },
-  region: { type: String, default: 'Pampanga' }
+  region: { type: String, default: 'Pampanga' },
+  // --- Feature 002: User Profile Dashboard ---
+  avatarUrl: { type: String, default: null },
+  avatarPublicId: { type: String, default: null }, // Cloudinary public_id for deletion
+  municipality: { type: String, default: null },
+  bio: { type: String, default: null, maxlength: 300 }
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {
