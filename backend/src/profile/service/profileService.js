@@ -46,8 +46,12 @@ const getDashboardPayload = async (userId) => {
   const farmDocs = await getFarmsByUser(userId);
   const farmCount = farmDocs.length;
 
-  // Collect all unique crop ObjectIds from user's farms
-  const allCropIds = [...new Set(farmDocs.flatMap((f) => f.crops.map(String)))];
+  // Collect all unique crop ObjectIds from user's farms (legacy crops + new plantedCrops)
+  const allCropIds = [...new Set(farmDocs.flatMap((f) => {
+    const legacyCrops = f.crops ? f.crops.map(String) : [];
+    const newCrops = f.plantedCrops ? f.plantedCrops.map(pc => String(pc.crop._id || pc.crop)) : [];
+    return [...legacyCrops, ...newCrops];
+  }))];
 
   // ── Active crops (filtered by season) ─────────────────────────────────────
   const activeCrops = allCropIds.length
