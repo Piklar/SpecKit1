@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "title": "New Government Subsidy for Rice Farmers",
+    "date": "2024-03-15",
+    "source": "Department of Agriculture",
+    "overview": "The Department of Agriculture has announced a new subsidy program aimed at helping rice farmers affected by recent weather disturbances.",
+    "highlights": [
+      "Up to 50% subsidy on certified seeds",
+      "P10,000 cash assistance per hectare",
+      "Available starting April 1, 2024"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1595806654067-17eb48c660ec?auto=format&fit=crop&q=80&w=800",
+    "url": "#"
+  },
+  {
+    "id": "2",
+    "title": "El Niño Preparation Guidelines Released",
+    "date": "2024-03-10",
+    "source": "PAGASA",
+    "overview": "PAGASA has released comprehensive guidelines for farmers to prepare for the upcoming El Niño phenomenon expected to hit the country late this year.",
+    "highlights": [
+      "Shift to drought-resistant crops recommended",
+      "Water conservation techniques detailed",
+      "Early planting advised for wet season crops"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1528659102435-055a4fbdbdc8?auto=format&fit=crop&q=80&w=800",
+    "url": "#"
+  },
+  {
+    "id": "3",
+    "title": "Fall Armyworm Outbreak in Northern Luzon Contained",
+    "date": "2024-03-05",
+    "source": "Bureau of Plant Industry",
+    "overview": "The recent outbreak of Fall Armyworm affecting corn fields in Northern Luzon has been successfully contained through rapid intervention.",
+    "highlights": [
+      "Over 500 hectares treated",
+      "Free bio-control agents distributed to affected areas",
+      "Continuous monitoring in place"
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1598512752271-33f913a5af13?auto=format&fit=crop&q=80&w=800",
+    "url": "#"
+  }
+]
