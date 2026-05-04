@@ -1,18 +1,13 @@
-import { Box, Container, Typography } from '@mui/material';
-import useWeather from '../../hooks/useWeather';
-import WeatherCard from '../../components/Cards/WeatherCard';
+import { Container, Typography } from '@mui/material';
+import WeatherWidget from '../../components/Weather/WeatherWidget';
 
 export default function WeatherPage() {
-  const { weather, loading, error } = useWeather();
-
   return (
     <Container sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
         Localized Weather Forecast
       </Typography>
-      <Box sx={{ mt: 2 }}>
-        <WeatherCard weather={weather} loading={loading} error={error} />
-      </Box>
+      <WeatherWidget lat={15.0794} lon={120.62} />
     </Container>
   );
 }

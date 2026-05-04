@@ -1,9 +1,46 @@
+const axios = require('axios');
+const { BASE_URL, getApiKey } = require('../config/openweather');
 const Weather = require('../models/Weather');
 
-// In a real scenario, this would call an external API like OpenWeatherMap
+/**
+ * WeatherService — Feature 004 (Updated)
+ * Now supports live OpenWeather API in addition to the legacy cache mechanism.
+ * Default location: Pampanga, Philippines (15.0794° N, 120.6200° E)
+ */
+
+const DEFAULT_LAT = 15.0794;
+const DEFAULT_LON = 120.62;
+
+// ── Live OpenWeather API methods (Feature 004) ────────────────────────────────
+
+/**
+ * Get current weather for a location from OpenWeather API.
+ * @param {number} lat - Latitude (defaults to Pampanga)
+ * @param {number} lon - Longitude (defaults to Pampanga)
+ */
+const getCurrentWeather = async (lat = DEFAULT_LAT, lon = DEFAULT_LON) => {
+  const apiKey = getApiKey();
+  const url = `${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+  const response = await axios.get(url);
+  return response.data;
+};
+
+/**
+ * Get 5-day / 3-hour forecast for a location from OpenWeather API.
+ * @param {number} lat - Latitude (defaults to Pampanga)
+ * @param {number} lon - Longitude (defaults to Pampanga)
+ */
+const getForecast = async (lat = DEFAULT_LAT, lon = DEFAULT_LON) => {
+  const apiKey = getApiKey();
+  const url = `${BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+  const response = await axios.get(url);
+  return response.data;
+};
+
+// ── Legacy cache methods (kept for backward compatibility) ────────────────────
+
 const fetchWeatherData = async () => {
   console.log('Fetching fresh weather data for Pampanga...');
-  // Mock data simulation
   return {
     location: 'Pampanga',
     temperature: 32 + Math.floor(Math.random() * 5),
@@ -29,8 +66,7 @@ const updateWeatherCache = async () => {
   }
 };
 
-// Hourly caching cron simulation
-setInterval(updateWeatherCache, 60 * 60 * 1000); // 1 hour
+setInterval(updateWeatherCache, 60 * 60 * 1000);
 
 const getCachedWeather = async () => {
   let weather = await Weather.findOne({ location: 'Pampanga' });
@@ -41,4 +77,4 @@ const getCachedWeather = async () => {
   return weather;
 };
 
-module.exports = { getCachedWeather, updateWeatherCache };
+module.exports = { getCachedWeather, updateWeatherCache, getCurrentWeather, getForecast };

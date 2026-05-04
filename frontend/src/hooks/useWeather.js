@@ -1,25 +1,32 @@
-import { useState, useEffect } from 'react';
-import api from '../services/api';
+import { useState, useEffect, useCallback } from 'react';
+import * as weatherService from '../services/weatherService';
 
-export default function useWeather() {
-  const [weather, setWeather] = useState(null);
-  const [loading, setLoading] = useState(true);
+export const useWeather = (lat, lon) => {
+  const [current, setCurrent] = useState(null);
+  const [forecast, setForecast] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const fetchWeather = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [currentData, forecastData] = await Promise.all([
+        weatherService.getCurrentWeather(lat, lon),
+        weatherService.getForecast(lat, lon)
+      ]);
+      setCurrent(currentData);
+      setForecast(forecastData);
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [lat, lon]);
+
   useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const { data } = await api.get('/weather');
-        setWeather(data);
-      } catch (err) {
-        setError(err.message || 'Failed to fetch weather');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchWeather();
-  }, []);
+  }, [fetchWeather]);
 
-  return { weather, loading, error };
-}
+  return { current, forecast, loading, error, refreshWeather: fetchWeather };
+};
