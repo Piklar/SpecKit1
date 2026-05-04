@@ -1,24 +1,45 @@
 import {
   ListItem,
   ListItemText,
-  ListItemSecondaryAction,
   IconButton,
   Checkbox,
   Typography,
   Box,
   Chip,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import { format } from 'date-fns';
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
 export default function TaskItem({ task, onEdit, onDelete, onToggle }) {
-  const isCompleted = task.completionStatus;
+  if (!task) return null;
+
+  const isCompleted = Boolean(task?.completionStatus);
 
   return (
     <ListItem
       divider
       alignItems="flex-start"
+      secondaryAction={
+        <Box>
+          <IconButton
+            edge="end"
+            aria-label={`Edit task "${task?.title || 'Untitled'}"`}
+            onClick={(e) => { e.stopPropagation(); onEdit(task); }}
+            size="small"
+            sx={{ mr: 0.5 }}
+          >
+            <EditIcon fontSize="small" />
+          </IconButton>
+          <IconButton
+            edge="end"
+            aria-label={`Delete task "${task?.title || 'Untitled'}"`}
+            onClick={(e) => { e.stopPropagation(); onDelete(task); }}
+            size="small"
+            color="error"
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      }
       sx={{
         opacity: isCompleted ? 0.65 : 1,
         transition: 'opacity 0.2s ease, background 0.15s ease',
@@ -30,10 +51,10 @@ export default function TaskItem({ task, onEdit, onDelete, onToggle }) {
     >
       <Checkbox
         checked={isCompleted}
-        onChange={() => onToggle(task._id)}
+        onChange={(e) => { e.stopPropagation(); onToggle(task._id); }}
         color="primary"
         size="small"
-        aria-label={`Mark "${task.title}" as ${isCompleted ? 'incomplete' : 'complete'}`}
+        aria-label={`Mark "${task?.title || 'Untitled'}" as ${isCompleted ? 'incomplete' : 'complete'}`}
         sx={{ mt: 0.5, mr: 0.5 }}
       />
 
@@ -48,17 +69,17 @@ export default function TaskItem({ task, onEdit, onDelete, onToggle }) {
               lineHeight: 1.4,
             }}
           >
-            {task.title}
+            {task?.title || 'Untitled Task'}
           </Typography>
         }
         secondary={
           <Box component="span" sx={{ display: 'flex', flexDirection: 'column', gap: 0.4, mt: 0.4 }}>
-            {task.dueTime && (
+            {Boolean(task?.dueTime) && (
               <Typography variant="caption" color="text.secondary">
                 🕒 {task.dueTime}
               </Typography>
             )}
-            {task.description && (
+            {Boolean(task?.description) && (
               <Typography
                 variant="caption"
                 color="text.secondary"
@@ -85,27 +106,6 @@ export default function TaskItem({ task, onEdit, onDelete, onToggle }) {
           </Box>
         }
       />
-
-      <ListItemSecondaryAction>
-        <IconButton
-          edge="end"
-          aria-label={`Edit task "${task.title}"`}
-          onClick={() => onEdit(task)}
-          size="small"
-          sx={{ mr: 0.5 }}
-        >
-          <EditIcon fontSize="small" />
-        </IconButton>
-        <IconButton
-          edge="end"
-          aria-label={`Delete task "${task.title}"`}
-          onClick={() => onDelete(task)}
-          size="small"
-          color="error"
-        >
-          <DeleteIcon fontSize="small" />
-        </IconButton>
-      </ListItemSecondaryAction>
     </ListItem>
   );
 }

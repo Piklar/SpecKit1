@@ -15,13 +15,14 @@ import {
   Snackbar,
   Alert,
 } from '@mui/material';
-import { AddTask as AddTaskIcon } from '@mui/icons-material';
-import { format, isToday } from 'date-fns';
+import { Add as AddIcon } from '@mui/icons-material';
+import { format, startOfWeek, addDays, startOfMonth, endOfMonth, endOfWeek, isSameMonth, isSameDay, addMonths, subMonths, isToday } from 'date-fns';
 import Calendar from '../../components/Calendar/Calendar';
 import CalendarHeader from '../../components/Calendar/CalendarHeader';
 import WeatherWidget from '../../components/Weather/WeatherWidget';
 import TaskModal from '../../components/Task/TaskModal';
 import TaskList from '../../components/Task/TaskList';
+import ErrorBoundary from '../../components/ErrorBoundary';
 import { useTasks } from '../../hooks/useTasks';
 import { useHolidays } from '../../hooks/useHolidays';
 
@@ -172,7 +173,7 @@ export default function CalendarPage() {
                 <Button
                   variant="contained"
                   onClick={handleAddTaskClick}
-                  startIcon={<AddTaskIcon />}
+                  startIcon={<AddIcon />}
                   aria-label="Add a new task"
                   sx={{
                     textTransform: 'none',
@@ -352,12 +353,14 @@ export default function CalendarPage() {
               <CircularProgress size={28} />
             </Box>
           ) : (
-            <TaskList
-              tasks={tasksForSelectedDay}
-              onEdit={handleEditTask}
-              onDelete={handleDeleteTask}
-              onToggle={handleToggleTask}
-            />
+            <ErrorBoundary>
+              <TaskList
+                tasks={tasksForSelectedDay}
+                onEdit={handleEditTask}
+                onDelete={handleDeleteTask}
+                onToggle={handleToggleTask}
+              />
+            </ErrorBoundary>
           )}
         </DialogContent>
         <DialogActions sx={{ px: 3, py: 2, gap: 1 }}>
@@ -366,7 +369,7 @@ export default function CalendarPage() {
           </Button>
           <Button
             variant="contained"
-            startIcon={<AddTaskIcon />}
+            startIcon={<AddIcon />}
             onClick={() => {
               setTaskToEdit(null);
               setInitialDate(selectedDate);

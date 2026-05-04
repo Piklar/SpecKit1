@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Typography, Box, CircularProgress, Button, Paper, Grid } from '@mui/material';
+import { Container, Typography, Box, CircularProgress, Button, Paper, Grid, Chip } from '@mui/material';
 import api from '../../services/api';
 
 export default function CropDetail() {
@@ -49,6 +49,24 @@ export default function CropDetail() {
             <Typography paragraph>{crop.soilType}</Typography>
           </Grid>
         </Grid>
+
+        {crop.pests && crop.pests.length > 0 && (
+          <Box sx={{ mt: 4 }}>
+            <Typography variant="h6" color="error.main">Common Pests</Typography>
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mt: 1 }}>
+              {crop.pests.map(pest => (
+                <Chip 
+                  key={pest._id || pest} 
+                  label={pest.name || 'Pest'} 
+                  color="error" 
+                  variant="outlined"
+                  onClick={() => navigate('/pests')}
+                />
+              ))}
+            </Box>
+          </Box>
+        )}
+
         <Box sx={{ mt: 4 }}>
           <Typography variant="h6">Description</Typography>
           <Typography paragraph>{crop.description}</Typography>

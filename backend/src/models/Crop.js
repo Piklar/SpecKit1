@@ -11,7 +11,8 @@ const cropSchema = new mongoose.Schema({
   type: { type: String },
   farmingTips: { type: String },
   marketPrice: { type: Number },
-  endProducts: [{ type: String }]
+  endProducts: [{ type: String }],
+  pests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pest' }]
 });
 
 module.exports = mongoose.model('Crop', cropSchema);
