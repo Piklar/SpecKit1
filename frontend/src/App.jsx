@@ -18,6 +18,7 @@ import NewsPage from './pages/news/NewsPage';
 import AboutPage from './pages/about/AboutPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import { FarmProvider } from './contexts/FarmContext';
+import Navbar from './components/layout/Navbar';
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -31,6 +32,7 @@ function App() {
       <Router>
         <AuthProvider>
           <FarmProvider>
+            <Navbar />
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/login" element={<LoginPage />} />

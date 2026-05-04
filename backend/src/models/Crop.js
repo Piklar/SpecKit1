@@ -7,7 +7,11 @@ const cropSchema = new mongoose.Schema({
   waterRequirement: { type: String, enum: ['low', 'medium', 'high'], required: true },
   soilType: { type: String, required: true },
   suitableRegions: [{ type: String, default: ['Pampanga'] }],
-  description: String
+  description: String,
+  type: { type: String },
+  farmingTips: { type: String },
+  marketPrice: { type: Number },
+  endProducts: [{ type: String }]
 });
 
 module.exports = mongoose.model('Crop', cropSchema);

@@ -57,14 +57,15 @@ AgriKlima is a localized web application designed to empower farmers in Pampanga
 
 ## API Documentation
 The backend exposes the following RESTful endpoints:
-- `\`/api/auth/register\`` (POST) - Register a new farmer account
-- `\`/api/auth/login\`` (POST) - Authenticate and receive a JWT
-- `\`/api/weather\`` (GET) - Fetch cached localized weather data for Pampanga
-- `\`/api/crops\`` (GET) - Fetch seasonal crop recommendations (supports `\`?season=wet\`` filter)
-- `\`/api/pests\`` (GET) - Fetch pest identification and mitigation strategies
-- `\`/api/farm\`` (GET, POST) - Manage user-specific farm profiles (Requires Auth)
-- `\`/api/calendar\`` (GET) - Fetch the seasonal agricultural calendar
-- `\`/api/news\`` (GET) - Fetch local agricultural news and advisories
+- `/api/auth/register` (POST) - Register a new farmer account
+- `/api/auth/login` (POST) - Authenticate and receive a JWT
+- `/api/weather` (GET) - Fetch cached localized weather data for Pampanga
+- `/api/crops` (GET) - Fetch seasonal crop recommendations (supports `?season=wet` filter)
+- `/api/pests` (GET) - Fetch pest identification and mitigation strategies
+- `/api/farm` (GET, POST) - Manage user-specific farm profiles (Requires Auth)
+- `/api/farm/:id/crops` (POST) - Add a planted crop to a specific farm profile (Requires Auth)
+- `/api/calendar` (GET) - Fetch the seasonal agricultural calendar
+- `/api/news` (GET) - Fetch local agricultural news and advisories
 
 ### `/api/profile/*` — User Profile Dashboard (Feature 002)
 

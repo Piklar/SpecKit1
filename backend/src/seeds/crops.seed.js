@@ -11,7 +11,11 @@ const crops = [
     growingTimeDays: 120,
     waterRequirement: 'high',
     soilType: 'Clay loam',
-    description: 'Staple crop of Pampanga, best planted during the rainy season.'
+    description: 'Staple crop of Pampanga, best planted during the rainy season.',
+    type: 'Cereal',
+    farmingTips: 'Ensure continuous flooding during early vegetative stage. Apply nitrogen fertilizer in splits.',
+    marketPrice: 25.50,
+    endProducts: ['White rice', 'Rice flour', 'Rice bran']
   },
   {
     name: 'Corn (Mais)',
@@ -19,7 +23,11 @@ const crops = [
     growingTimeDays: 90,
     waterRequirement: 'medium',
     soilType: 'Sandy loam',
-    description: 'Common secondary crop during the dry season.'
+    description: 'Common secondary crop during the dry season.',
+    type: 'Cereal',
+    farmingTips: 'Plant seeds 1-2 inches deep. Requires full sun and well-drained soil.',
+    marketPrice: 18.00,
+    endProducts: ['Corn kernels', 'Cornmeal', 'Animal feed']
   },
   {
     name: 'Eggplant (Talong)',
@@ -27,7 +35,11 @@ const crops = [
     growingTimeDays: 80,
     waterRequirement: 'medium',
     soilType: 'Loam',
-    description: 'Hardy vegetable that grows well year-round in Pampanga.'
+    description: 'Hardy vegetable that grows well year-round in Pampanga.',
+    type: 'Fruit-bearing',
+    farmingTips: 'Stake the plants to support heavy fruits. Watch out for fruit and shoot borers.',
+    marketPrice: 60.00,
+    endProducts: ['Fresh eggplant', 'Grilled eggplant (Tortang Talong)']
   }
 ];
 
