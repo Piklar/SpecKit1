@@ -67,6 +67,20 @@ The backend exposes the following RESTful endpoints:
 - `/api/calendar` (GET) - Fetch the seasonal agricultural calendar
 - `/api/news` (GET) - Fetch local agricultural news and advisories
 
+### Feature 004: Calendar, Weather & Tasks
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/weather/current` | Fetch current weather (supports `?lat=&lon=`) |
+| GET | `/api/weather/forecast` | Fetch 5-day forecast (supports `?lat=&lon=`) |
+| GET | `/api/holidays/:year` | Fetch Philippine national holidays for a given year |
+| GET | `/api/tasks` | Get all tasks for the logged-in user (Requires Auth) |
+| GET | `/api/tasks/date/:date` | Get tasks for a specific date (Requires Auth) |
+| POST | `/api/tasks` | Create a new task (Requires Auth) |
+| PUT | `/api/tasks/:id` | Update a task (Requires Auth) |
+| PATCH | `/api/tasks/:id/toggle` | Toggle task completion status (Requires Auth) |
+| DELETE | `/api/tasks/:id` | Delete a task (Requires Auth) |
+
 ### `/api/profile/*` — User Profile Dashboard (Feature 002)
 
 All routes require a valid JWT in the `Authorization: Bearer <token>` header.
